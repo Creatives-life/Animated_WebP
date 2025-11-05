@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Animated WebP Compressor</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial; max-width: 800px; margin: 40px auto; padding: 0 20px;}
+    label { display:block; margin-top:10px;}
+  </style>
+</head>
+<body>
+  <h1>Animated WebP Compressor</h1>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <label>Select one or more .webp files:
+      <input type="file" name="file" accept=".webp" multiple required>
+    </label>
+
+    <label>Quality (0-100, lower = smaller):
+      <input type="number" name="quality" min="0" max="100" value="80">
+    </label>
+
+    <label>Resize ratio (e.g. 0.5 for half size, 1.0 for same):
+      <input type="text" name="resize_ratio" value="1.0">
+    </label>
+
+    <label>Frame duration in ms (optional, leave blank to keep original):
+      <input type="text" name="duration" placeholder="e.g. 100">
+    </label>
+
+    <button type="submit">Upload & Compress</button>
+  </form>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+      {% for msg in messages %}
+        <li>{{ msg }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>
